@@ -88,7 +88,7 @@ const Dashboardpage = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto mt-8">
+    <div className="w-[40%] mx-auto mt-[2%]">
       <button 
         onClick={goToDashboard} 
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded w-[100%] hover:bg-blue-600 "
