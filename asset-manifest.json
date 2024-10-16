@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Self-Learn/static/css/main.841a0d93.css",
+    "main.js": "/Self-Learn/static/js/main.f183260a.js",
+    "static/js/453.f79f63f4.chunk.js": "/Self-Learn/static/js/453.f79f63f4.chunk.js",
+    "index.html": "/Self-Learn/index.html",
+    "main.841a0d93.css.map": "/Self-Learn/static/css/main.841a0d93.css.map",
+    "main.f183260a.js.map": "/Self-Learn/static/js/main.f183260a.js.map",
+    "453.f79f63f4.chunk.js.map": "/Self-Learn/static/js/453.f79f63f4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.841a0d93.css",
+    "static/js/main.f183260a.js"
+  ]
+}
