@@ -1,72 +1,66 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ref, get } from "firebase/database";
-import { database } from "../Firebase";
+import { database } from "../Firebase"; // Import your Firebase configuration
 import "./Login.css";
 
 const Login = () => {
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-  });
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  // Effect to handle redirection based on login status
-  // useEffect(() => {
-  //   const isLoggedIn = localStorage.getItem("isLoggedIn");
-    
-  //   if (isLoggedIn === "true") {
-  //     navigate("/Dashboardpage");
-  //   }
-  // }, [navigate]);
+  // Redirect to Dashboard if already logged in
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      navigate("/Dashboardpage");
+    }
+  }, [navigate]);
 
-  // const handleLogin = async () => {
-  //   const { email, password } = loginData;
-  //   let formErrors = {};
+  const handleLogin = async () => {
+    const { email, password } = loginData;
+    let formErrors = {};
 
-  //   // Validation
-  //   if (!email) formErrors.email = "Email is required";
-  //   if (!password) formErrors.password = "Password is required";
+    // Validation
+    if (!email) formErrors.email = "Email is required";
+    if (!password) formErrors.password = "Password is required";
 
-  //   if (Object.keys(formErrors).length > 0) {
-  //     setErrors(formErrors);
-  //     return;
-  //   }
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
 
-  //   const userRef = ref(database, "signupdata");
+    const userRef = ref(database, "signupdata");
 
-  //   try {
-  //     const snapshot = await get(userRef);
-  //     const userData = snapshot.val();
-  //     const user = Object.values(userData || {}).find(
-  //       (user) => user.signupData && user.signupData.email === email
-  //     );
+    try {
+      const snapshot = await get(userRef);
+      const userData = snapshot.val();
+      const user = Object.values(userData || {}).find(
+        (user) => user.signupData && user.signupData.email === email
+      );
 
-  //     if (user) {
-  //       const singleUserData = user.signupData;
+      if (user) {
+        const singleUserData = user.signupData;
 
-  //       if (singleUserData.password === password) {
-  //         // Successful login
-  //         localStorage.setItem("email", singleUserData.email);
-  //         localStorage.setItem("firstName", singleUserData.firstName);
-  //         localStorage.setItem("isLoggedIn", "true"); // Set login status to true
-  //         navigate("/Dashboardpage"); // Redirect after successful login
-  //       } else {
-  //         setErrors({ password: "Incorrect password" });
-  //       }
-  //     } else {
-  //       setErrors({ email: "User does not exist" });
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching user data:", error);
-  //     setErrors({ general: "Error fetching user data" });
-  //   }
-  // };
-const handleLogin =()=>{
-  navigate('/Dashboardpage')
-}
+        if (singleUserData.password === password) {
+          // Successful login
+          localStorage.setItem("email", singleUserData.email);
+          localStorage.setItem("firstName", singleUserData.firstName);
+          localStorage.setItem("isLoggedIn", "true"); // Set login status to true
+          navigate("/Dashboardpage"); // Redirect after successful login
+        } else {
+          setErrors({ password: "Incorrect password" });
+        }
+      } else {
+        setErrors({ email: "User does not exist" });
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setErrors({ general: "Error fetching user data" });
+    }
+  };
+
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({

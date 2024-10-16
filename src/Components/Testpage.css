@@ -1,0 +1,232 @@
+.quiz-container {
+  display: flex;
+  flex-direction: row; /* Align buttons and content side by side by default */
+  flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+.question-buttons {
+  padding: 15px; /* Adjust padding as needed */
+  border-right: 1px solid #ccc; /* Optional: visual separation */
+  display: flex;
+  flex-direction: column; /* Arrange buttons vertically */
+  width: 200px; /* Fixed width for buttons */
+}
+
+.question-content {
+  flex: 1; /* Allow it to take the remaining space */
+  padding: 20px; /* Adjust padding as needed */
+}
+
+.question-buttons button {
+  margin: 6px 0; /* Add space between buttons */
+}
+
+.question-buttons button.active {
+  background-color: #007BFF; /* Highlight active button */
+  color: white;
+}
+
+.buttons {
+  margin-top: 20px; /* Space above navigation buttons */
+}
+
+.quiz-container {
+  display: flex;
+  flex-direction: row; /* Align buttons and content side by side by default */
+  flex-wrap: nowrap; /* Prevent wrapping */
+}
+
+.question-buttons {
+  padding: 15px; /* Adjust padding as needed */
+  border-right: 1px solid #ccc; /* Optional: visual separation */
+  display: flex;
+  flex-direction: column; /* Arrange buttons vertically */
+  width: 200px; /* Fixed width for buttons */
+}
+
+.question-content {
+  flex: 1; /* Allow it to take the remaining space */
+  padding: 30px; /* Adjust padding as needed */
+}
+
+.question-buttons button {
+  margin: 6px 0; /* Add space between buttons */
+  border-radius: 15px;
+}
+
+.question-buttons button.active {
+  background-color: #007BFF; /* Highlight active button */
+  color: white;
+}
+
+.buttons {
+  margin-top: 20px; /* Space above navigation buttons */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 599px) {
+  .question-buttons {
+   
+    width: 40px;
+    padding: 5px; 
+  
+  }
+  .question-buttons button {
+    border-radius: 10px;
+  }
+  
+ 
+}
+
+/* Styling for the buttons */
+.previous-btn {
+  background-color: #28a745; /* Green for Previous */
+  color: white;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.previous-btn:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+.next-btn {
+  background-color: #ffc107; /* Yellow for Next */
+  color: black;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+  
+}
+
+.next-btn:hover {
+  background-color: #e0a800; /* Darker yellow on hover */
+  
+}
+
+/* Optional: styling for the Submit button if needed */
+.submit-btn {
+  background-color: #eb121d; /* Blue for Submit */
+  color: white;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  float: right;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+/* Hide the native radio button */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  outline: none;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: border 0.3s ease;
+}
+
+/* Unchecked radio button */
+input[type="radio"]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: transparent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.3s ease;
+}
+
+/* When the radio button is checked, set border to green and the inner circle to green */
+input[type="radio"]:checked {
+  border-color: #050605; /* Green border */
+  margin: 2px;
+}
+
+input[type="radio"]:checked::before {
+  background-color: #291dd1; /* Green inner circle */
+}
+
+/* Add hover effects */
+input[type="radio"]:hover {
+  border-color: #888; /* Slight border change on hover */
+}
+
+label {
+  cursor: pointer; /* Make label clickable */
+  margin-left: 8px;
+}
+/* Center the start button on the page */
+.start-quiz-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+}
+/* Style the start quiz button */
+.start-quiz-btn {
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* White text color */
+  padding: 15px 30px; /* Padding to make the button larger */
+  font-size: 18px; /* Increase font size */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.start-quiz-btn:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Center the score and retake button */
+.score-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Use full available height of the parent container */
+  width: 100%;  /* Use full available width of the parent container */
+  flex-direction: column; /* Stack score and button vertically */
+  overflow: hidden; /* Prevent overflow */
+  padding: 0 20px; /* Add padding to avoid text touching the edges on smaller screens */
+  box-sizing: border-box; /* Ensure padding doesn't add to element width/height */
+}
+
+/* Style for the retake button */
+.score-container button {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  padding: 12px 25px; /* Padding for button */
+  font-size: 16px; /* Button font size */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer on hover */
+  margin-top: 20px; /* Space between score and button */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.score-container button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Style for the score text */
+.score-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px; /* Font size for score text */
+}

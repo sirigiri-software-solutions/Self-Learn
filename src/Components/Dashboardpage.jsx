@@ -1,13 +1,17 @@
 
+
 import React, { useState } from 'react';
 import Chapter from './Chapter';
- import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+// import './state.css';
+
 
 const Dashboardpage = () => {
   const [selectedState, setSelectedState] = useState('');
   const [selectedClass, setSelectedClass] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const [selectedChapter, setSelectedChapter] = useState('');
+  // const [showTextArea, setShowTextArea] = useState(false);
 
   const handleStateChange = (event) => {
     setSelectedState(event.target.value);
@@ -81,26 +85,40 @@ const Dashboardpage = () => {
       return ['Please select a state first'];
     }
   };
-   const navigate = useNavigate();
+
+  const navigate = useNavigate();
+
+  // const handleNext = () => {
+  //   setShowTextArea(true);
+  // };
 
   const goToDashboard = () => {
-     navigate('/');
+    navigate('/');
+  };
+
+  const goToTestPage = () => {
+    navigate('/testpage');
+  };
+
+  const goToDoubtPage = () => {
+    navigate('/doubtsection');
   };
 
   return (
-    <div className="w-[40%] mx-auto mt-[2%]">
-      <button 
-        onClick={goToDashboard} 
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded w-[100%] hover:bg-blue-600 "
+    <div className="container mx-auto max-w-lg p-4">
+      <button
+        onClick={goToDashboard}
+        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md w-full hover:bg-blue-700 transition duration-300"
       >
-        Logout
+        Log out
       </button>
-      <div className="flex flex-col items-start justify-center p-5 bg-white rounded-lg shadow-md">
+
+      <div className="dropdown-container flex flex-col items-start justify-center p-5 bg-white rounded-lg shadow-md w-full">
         <div className="flex items-center mb-4 w-full">
-          <label className="font-semibold text-sm text-gray-600 mr-4 w-32 text-right">State:</label>
-          <select 
-            className="flex-1 cursor-pointer px-3 py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
-            value={selectedState} 
+          <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-32">State:</label>
+          <select
+            className="dropdown flex-1 cursor-pointer p-2 border border-gray-300 rounded-md bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:outline-none"
+            value={selectedState}
             onChange={handleStateChange}
           >
             <option value="">Select a State</option>
@@ -110,10 +128,10 @@ const Dashboardpage = () => {
         </div>
 
         <div className="flex items-center mb-4 w-full">
-          <label className="font-semibold text-sm text-gray-600 mr-4 w-32 text-right">Class:</label>
-          <select 
-            className="flex-1 cursor-pointer px-3 py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
-            value={selectedClass} 
+          <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-32">Class:</label>
+          <select
+            className="dropdown flex-1 cursor-pointer p-2 border border-gray-300 rounded-md bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:outline-none"
+            value={selectedClass}
             onChange={handleClassChange}
           >
             <option value="">Select a Class</option>
@@ -126,10 +144,10 @@ const Dashboardpage = () => {
         </div>
 
         <div className="flex items-center mb-4 w-full">
-          <label className="font-semibold text-sm text-gray-600 mr-4 w-32 text-right">Subjects:</label>
-          <select 
-            className="flex-1 px-3 cursor-pointer py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
-            value={selectedSubject} 
+          <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-32">Subjects:</label>
+          <select
+            className="dropdown flex-1 cursor-pointer p-2 border border-gray-300 rounded-md bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:outline-none"
+            value={selectedSubject}
             onChange={handleSubjectChange}
           >
             <option value="">Select a Subject</option>
@@ -141,26 +159,32 @@ const Dashboardpage = () => {
           </select>
         </div>
 
-        <div className="flex items-center mb-4 w-full">
-          <Chapter 
-            state={selectedState} 
-            clas={selectedClass} 
-            subject={selectedSubject} 
-            onChapterChange={handleChapterChange} 
+        <div className="chapter-container mb-4 w-full">
+          <Chapter
+            state={selectedState}
+            clas={selectedClass}
+            subject={selectedSubject}
+            onChapterChange={handleChapterChange}
           />
         </div>
 
-        {selectedState && <p className="text-xs text-gray-500 mt-2 font-medium">You have selected state: {selectedState}</p>}
-        {selectedClass && <p className="text-xs text-gray-500 mt-2 font-medium">You have selected class: {selectedClass}</p>}
-        {selectedSubject && <p className="text-xs text-gray-500 mt-2 font-medium">You have selected subject: {selectedSubject}</p>}
-        {selectedChapter && <p className="text-xs text-gray-500 mt-2 font-medium">You have selected chapter: {selectedChapter}</p>}
+        {selectedState && <p className="selected-info text-xs text-gray-500 mt-2">You have selected state: {selectedState}</p>}
+        {selectedClass && <p className="selected-info text-xs text-gray-500 mt-2">You have selected class: {selectedClass}</p>}
+        {selectedSubject && <p className="selected-info text-xs text-gray-500 mt-2">You have selected subject: {selectedSubject}</p>}
+        {selectedChapter && <p className="selected-info text-xs text-gray-500 mt-2">You have selected chapter: {selectedChapter}</p>}
+
+        {selectedState && selectedClass && selectedSubject && selectedChapter && (
+          <div className="flex flex-col w-full gap-2">
+            {/* <button onClick={handleNext} className="px-4 py-2 bg-green-500 text-white rounded-md w-full">Next</button> */}
+            <button className="doubt-button px-4 py-2 bg-yellow-500 text-white rounded-md w-full" onClick={goToDoubtPage}>Doubt</button>
+            <button className="test-button px-4 py-2 bg-purple-500 text-white rounded-md w-full" onClick={goToTestPage}>Test</button>
+          </div>
+        )}
       </div>
+      
+      {/* <WindowWidth /> */}
     </div>
   );
 };
 
 export default Dashboardpage;
-
-
-
-
