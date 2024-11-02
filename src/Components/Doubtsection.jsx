@@ -13,10 +13,6 @@ const DoutSection = () => {
     navigate('/testpage');
   };
 
-  const handlechangetopic=()=>{
-    navigate('/dashboardpage')
-  }
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100 relative">
       <div className="flex justify-between w-full max-w-lg mb-4">
@@ -25,12 +21,6 @@ const DoutSection = () => {
           onClick={goToTestPage}
         >
           Test
-        </button>
-        <button
-          className="test-button px-4 py-2 bg-green-500 text-white rounded-md hover:bg-purple-600 transition duration-300"
-          onClick={handlechangetopic}
-        >
-          Change Topic
         </button>
         <button
           onClick={goToDashboard}

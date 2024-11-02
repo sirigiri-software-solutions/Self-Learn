@@ -19,7 +19,9 @@ const Testpage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [showQuiz, setShowQuiz] = useState(false);
-
+  const [numQuestions, setNumQuestions] = useState(5);
+  const [selectQuestions, setSelectQuestions] = useState(false);
+  
   const handleOptionChange = (option) => {
     const newSelectedOptions = [...selectedOptions];
     newSelectedOptions[currentQuestionIndex] = option;
@@ -27,7 +29,11 @@ const Testpage = () => {
   };
 
   const handleNext = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, mcqData.length - 1));
+    if (!selectQuestions) {
+      setSelectQuestions(true);
+    } else {
+      setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, numQuestions - 1));
+    }
   };
 
   const handlePrevious = () => {
@@ -37,7 +43,7 @@ const Testpage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let correctAnswers = 0;
-    mcqData.forEach((item, index) => {
+    mcqData.slice(0, numQuestions).forEach((item, index) => {
       if (item.answer === selectedOptions[index]) {
         correctAnswers++;
       }
@@ -46,93 +52,74 @@ const Testpage = () => {
     setSubmitted(true);
   };
 
-  const handleQuestionSelect = (index) => {
-    setCurrentQuestionIndex(index);
-  };
-
   const resetQuiz = () => {
     setCurrentQuestionIndex(0);
-    setSelectedOptions(Array(mcqData.length).fill(''));
+    setSelectedOptions(Array(numQuestions).fill(''));
     setSubmitted(false);
     setScore(0);
     setShowQuiz(false);
+    setSelectQuestions(false);
   };
 
   return (
     <div className="quiz-container">
-      {/* Only show the 'Start Quiz' button if the quiz hasn't started */}
       {!showQuiz && (
         <div className="start-quiz-container">
-          <button className="start-quiz-btn" onClick={() => setShowQuiz(true)}>Start Test</button>
+          {!selectQuestions ? (
+            <>
+              <label htmlFor="numQuestions" className="num-questions-label">Number of Questions:</label>
+              <input
+                type="number"
+                id="numQuestions"
+                min="1"
+                max={mcqData.length}
+                value={numQuestions}
+                onChange={(e) => setNumQuestions(Math.min(e.target.value, mcqData.length))}
+                className="num-questions-input"
+              />
+              <button className="start-quiz-btn" onClick={handleNext}>Next</button>
+            </>
+          ) : (
+            <button className="start-quiz-btn" onClick={() => setShowQuiz(true)}>Start Test</button>
+          )}
         </div>
       )}
 
-      {/* Show the quiz content after clicking 'Start Quiz' */}
       {showQuiz && (
-        <>
-          {/* Hide question buttons if the quiz has been submitted */}
-          {!submitted && (
-            <div className="question-buttons">
-              {mcqData.map((question, index) => (
-                <button
-                  key={question.id}
-                  onClick={() => handleQuestionSelect(index)}
-                  disabled={submitted}
-                  className={currentQuestionIndex === index ? 'active' : ''}
-                >
-                  {question.id}
-                </button>
-              ))}
-            </div>
-          )}
-
-          <div className="question-content">
-            {submitted ? (
-              <div className="score-container">
-                <h2>Your score: {score}/{mcqData.length}</h2>
-
-                <button onClick={resetQuiz}>Retake Quiz</button>
-
-                <button onClick={() => alert("Redirecting to more questions!")}>
-                  More Questions on this Topic
-                </button>
+        <div className="question-content">
+           <div className="question-header">
+                <h3>Current Question: {currentQuestionIndex + 1} / {numQuestions}</h3>
               </div>
-            ) : (
+          {!submitted ? (
+            <>
+             
               <form onSubmit={handleSubmit}>
                 <div className="question">
                   <h3>{mcqData[currentQuestionIndex].question}</h3>
+                </div>
+                <div className="options-container">
                   {mcqData[currentQuestionIndex].options.map((option, optionIndex) => (
                     <div key={optionIndex}>
-                      <label>
-                        <input
-                          type="radio"
-                          name={`question-${currentQuestionIndex}`}
-                          value={option}
-                          checked={selectedOptions[currentQuestionIndex] === option}
-                          onChange={() => handleOptionChange(option)}
-                        />
-                        {option}
-                      </label>
+                      <input
+                        type="radio"
+                        name={`question-${currentQuestionIndex}`}
+                        value={option}
+                        id={`option-${optionIndex}`}
+                        checked={selectedOptions[currentQuestionIndex] === option}
+                        onChange={() => handleOptionChange(option)}
+                      />
+                      <label htmlFor={`option-${optionIndex}`}>{option}</label>
                     </div>
                   ))}
                 </div>
                 <div className="buttons">
-                  <button
-                    type="button"
-                    onClick={handlePrevious}
-                    disabled={currentQuestionIndex === 0} // Disable when on the first question
-                    className="previous-btn"
-                  >
-                    Previous
-                  </button>
-                  
-
-                  {currentQuestionIndex < mcqData.length - 1 ? (
-                    <button
-                      type="button"
-                      onClick={handleNext}
-                      className="next-btn"
-                    >
+                  {currentQuestionIndex > 0 && (
+                    <button type="button" onClick={handlePrevious} className="previous-btn">
+                      Previous
+                    </button>
+                  )}
+                  {currentQuestionIndex < numQuestions - 1 ? (
+                    <button type="button" onClick={handleNext} className="next-btn">
                       Next
                     </button>
                   ) : (
@@ -140,12 +127,16 @@ const Testpage = () => {
                   )}
                 </div>
               </form>
-            )}
-          </div>
-        </>
+            </>
+          ) : (
+            <div className="score-container">
+              <h2>Your score: {score}/{numQuestions}</h2>
+              <button onClick={resetQuiz}>Retake Quiz</button>
+            </div>
+          )}
+        </div>
       )}
     </div>
-    
   );
 };
 
