@@ -149,6 +149,7 @@ const Signup = () => {
           <button className="button" onClick={handleSignup}>
             Signup
           </button>
+          
 
           <div className="signin-prompt">
             Already have an account? <Link to="/">Click Sign In</Link> {/* This directs to the login page */}
