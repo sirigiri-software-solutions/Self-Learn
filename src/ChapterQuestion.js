@@ -34,10 +34,13 @@ const ChapterQuestion = () => {
       </div> */}
       
       <div className="w-full  md:ml-[10px] md:mt-[10px] md:w-[50%] p-6 overflow-auto h-[60vh] md:h-full shadow-lg bg-white rounded-lg scrollbar-hide">
-        <h2 className="text-2xl font-bold mb-6 mt-4 md:mt-[20px] text-indigo-600">
-          Chapter Questions
+    
+
+      
+        {selectedQuestions && selectedQuestions.length > 0 ?(    <ul>
+          <h2 className="text-2xl font-bold mb-6 mt-4 md:mt-[20px] text-indigo-600 opacity-[80%]">
+          Chapter Questions:
         </h2>
-        <ul>
           {selectedQuestions.map((question, index) => (
             <li
               className="mt-3 cursor-pointer bg-indigo-100 text-black hover:bg-indigo-200 p-3 rounded-lg hover:text-indigo-700 shadow-sm transition-all duration-200 ease-in-out"
@@ -47,7 +50,9 @@ const ChapterQuestion = () => {
               {question}
             </li>
           ))}
-        </ul>
+        </ul>): (<p className="h-[20vh] w-[50%]text-center opacity-[50%] text-3xl mt-[40%]">No questions is available from this chapter</p>)}
+
+    
       </div>
 
       

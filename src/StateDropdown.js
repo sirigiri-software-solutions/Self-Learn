@@ -597,8 +597,14 @@ const { selectedQuestions } = useChapterContext();
           selectedChapter && (
             <div className="flex flex-col w-full gap-2">
               {/* <button onClick={handleNext} className="px-4 py-2 bg-green-500 text-white rounded-md w-full">Next</button> */}
-      
-              {
+              <button
+      className="doubt-button px-4 py-2 bg-green-500 text-white rounded-md w-full"
+      onClick={gotoQuestion}
+    >
+      Go to Questions
+    </button> 
+
+              {/* {
   selectedQuestions && selectedQuestions.length > 0 ?   (
     <button
       className="doubt-button px-4 py-2 bg-green-500 text-white rounded-md w-full"
@@ -607,7 +613,7 @@ const { selectedQuestions } = useChapterContext();
       Go to Questions
     </button> 
   ) :null
-}
+} */}
 
               <button
                 className="doubt-button px-4 py-2 bg-yellow-500 text-white rounded-md w-full"
