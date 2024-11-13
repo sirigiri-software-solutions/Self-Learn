@@ -1,0 +1,11 @@
+.opstionwrap{
+    color: green;
+    height: 100px;
+    width: 100px;
+    /* background-color: red; */
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    top:20%;
+    left:-20%
+}
