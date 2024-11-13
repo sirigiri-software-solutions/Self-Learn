@@ -5723,6 +5723,10 @@ const Chapter = ({ state, clas, subject, onChapterChange, onSubchapterChange }) 
     if (chapterObject) {
       setSelectedQuestions(chapterObject.questions); 
     }
+    else{
+    setSelectedQuestions("there is no chapter selected")
+
+    }
   };
 
 
@@ -5743,12 +5747,12 @@ const Chapter = ({ state, clas, subject, onChapterChange, onSubchapterChange }) 
   return (
     <div className="flex flex-col mb-4 w-full h-full">
       <div className="flex flex-row items-center w-full space-x-1">
-      <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4  w-[30%] text-right">
+      <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[30%] text-right">
 
           Chapters:
         </label>
         <select
-          className="w-[85%] px-3 cursor-pointer py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
+          className="w-[90%] md:w-[85%] px-3 cursor-pointer py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
           onChange={handleChapterSelection}
         >
           <option value="">Select a chapter</option>
@@ -5765,15 +5769,15 @@ const Chapter = ({ state, clas, subject, onChapterChange, onSubchapterChange }) 
       </div>
 
 
-   
+     
       {chapterObject?.subchapters?.length > 0 && (
   <div className="flex items-center mb-4 mt-[3%]">
-    <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[30%] text-right">
+    <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[20%] text-right">
       Subchapters:
     </label>
     <select
-      className="w-[70%] px-3 cursor-pointer py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
-      onChange={handleSubchapterSelection}
+          className="w-[90%] md:w-[85%] px-3 cursor-pointer py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
+          onChange={handleSubchapterSelection}
       value={selectedSubchapter}
     >
       <option value="">Select a subchapter</option>
@@ -5787,21 +5791,6 @@ const Chapter = ({ state, clas, subject, onChapterChange, onSubchapterChange }) 
 )}
 
 
-
-
-      {/* {chapterObject && chapterObject.questions.length > 0 && (
-        <div className="flex items-center  w-full">
-          <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[30%] text-right">
-            Questions:
-          </label>
-          <button
-            className="doubt-button px-4 py-2 bg-green-700  text-white rounded-md w-full"
-            onClick={gotoQuestion}
-          >
-            Go To Questions
-          </button>
-        </div>
-      )} */}
 
     </div>
   );
