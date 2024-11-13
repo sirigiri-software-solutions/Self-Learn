@@ -1,3 +1,187 @@
+<<<<<<< HEAD
+/* Shared styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main component styles */
+.total-component {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 30px auto;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Dropdown container */
+.dropdown-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.total-component label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #4a4a4a;
+  margin-right: 15px;
+  width: 130px;
+  text-align: right;
+}
+
+/* Dropdown select styling */
+.state-select, 
+.class-select, 
+.subjects-select, 
+.chapter-select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 14px;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* Focus styles */
+.state-select:focus, 
+.class-select:focus, 
+.subjects-select:focus, 
+.chapter-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+}
+
+/* Hover effects */
+.state-select:hover, 
+.class-select:hover, 
+.subjects-select:hover, 
+.chapter-select:hover {
+  border-color: #007bff;
+}
+
+/* Text for selections */
+.total-component p {
+  font-size: 13px;
+  color: #6c757d;
+  margin-top: 10px;
+  font-weight: 500;
+  text-align: left;
+}
+
+/* Chapter dropdown container */
+.chapter-dropdown-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.chapter-dropdown-container label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #4a4a4a;
+  margin-right: 15px;
+  width: 130px;
+  text-align: right;
+}
+
+.chapter-select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 14px;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chapter-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+}
+
+.chapter-select:hover {
+  border-color: #007bff;
+}
+
+
+/* login page */
+
+.background {
+  background-color: #f0f0f0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+/* signup */
+
+.signup-background {
+  background-color: #f0f0f0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-container {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+=======
 .App {
   text-align: center;
 }
@@ -35,4 +219,5 @@
   to {
     transform: rotate(360deg);
   }
+>>>>>>> b076b5c8cbf2c56d94b4eec37b27cdd4c07318ed
 }
