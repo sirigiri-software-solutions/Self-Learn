@@ -18,19 +18,9 @@ body {
     /* background: rgba(0, 0, 0, 0.1); Track color */
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #00796B; /* Scrollbar thumb color */
+    background-color: #00796B; 
     border-radius: 10px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #004D40; /* Hover effect on thumb */
+    background-color: #004D40;
   }
-
-  /* Hide scrollbar but keep scrolling */
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Hide scrollbar in webkit browsers */
-  }
-  .hide-scrollbar {
-    -ms-overflow-style: none;  /* Hide scrollbar in IE and Edge */
-    scrollbar-width: none;  /* Hide scrollbar in Firefox */
-  }
-}
