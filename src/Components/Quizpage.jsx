@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Testpage.css';
+import './Quizpage.css';
 
-const Testpage = () => {
+const Quizpage = () => {
   const mcqData = [
     { id: 1, question: "What is the correct way to declare a variable in JavaScript?", options: ["var myVar;", "declare myVar;", "variable myVar;", "myVar = var;"], answer: "var myVar;" },
     { id: 2, question: "What does '===' mean in JavaScript?", options: ["Checks equality and type.", "Checks equality only.", "Assigns a value.", "Compares two objects."], answer: "Checks equality and type." },
@@ -11,7 +11,7 @@ const Testpage = () => {
     { id: 6, question: "Which symbol is used to comment a single line in JavaScript?", options: ["//", "#", "/*", "<!--"], answer: "//" },
     { id: 7, question: "How can you create an object in JavaScript?", options: ["let myObject = {};", "let myObject = [];", "let myObject = object();", "let myObject = ();"], answer: "let myObject = {};" },
     { id: 8, question: "What is the purpose of the 'this' keyword in JavaScript?", options: ["Refers to the global object.", "Refers to the current object.", "Creates a new object.", "Declares a variable."], answer: "Refers to the current object." },
-    { id: 9, question: "What does JSON stand for?", options: ["JavaScript Object Notation", "JavaScript Online Notation", "Java Syntax Object Notation", "Java Source Object Notation"], answer: "JavaScript Object Notation" }
+    { id: 9, question: "What does JSON stand for?", options: ["JavaScript Object Notation", "JavaScript Online Notation", "Java Syntax Object Notation", "Java Source Object Notation"], answer: "JavaScript Object Notation" },
   ];
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -19,6 +19,7 @@ const Testpage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [numQuestions, setNumQuestions] = useState(5);
 
   const handleOptionChange = (option) => {
     const newSelectedOptions = [...selectedOptions];
@@ -27,27 +28,27 @@ const Testpage = () => {
   };
 
   const handleNext = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, mcqData.length - 1));
+    if (currentQuestionIndex < numQuestions - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    }
   };
 
   const handlePrevious = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let correctAnswers = 0;
-    mcqData.forEach((item, index) => {
+    mcqData.slice(0, numQuestions).forEach((item, index) => {
       if (item.answer === selectedOptions[index]) {
         correctAnswers++;
       }
     });
     setScore(correctAnswers);
     setSubmitted(true);
-  };
-
-  const handleQuestionSelect = (index) => {
-    setCurrentQuestionIndex(index);
   };
 
   const resetQuiz = () => {
@@ -60,78 +61,69 @@ const Testpage = () => {
 
   return (
     <div className="quiz-container">
-      {/* Only show the 'Start Quiz' button if the quiz hasn't started */}
       {!showQuiz && (
         <div className="start-quiz-container">
+          <label htmlFor="numQuestions" className="num-questions-label">Number of Questions:</label>
+          <input
+            type="number"
+            id="numQuestions"
+            min="1"
+            max={mcqData.length}
+            value={numQuestions}
+            onChange={(e) => setNumQuestions(Math.min(e.target.value, mcqData.length))}
+            className="num-questions-input"
+          />
           <button className="start-quiz-btn" onClick={() => setShowQuiz(true)}>Start Test</button>
         </div>
       )}
 
-      {/* Show the quiz content after clicking 'Start Quiz' */}
       {showQuiz && (
-        <>
-          {/* Hide question buttons if the quiz has been submitted */}
-          {!submitted && (
-            <div className="question-buttons">
-              {mcqData.map((question, index) => (
-                <button
-                  key={question.id}
-                  onClick={() => handleQuestionSelect(index)}
-                  disabled={submitted}
-                  className={currentQuestionIndex === index ? 'active' : ''}
-                >
-                  {question.id}
-                </button>
-              ))}
-            </div>
-          )}
+        <div className="question-content">
+          {/* Question Tracker */}
+          <div className="question-tracker">
+            {Array.from({ length: numQuestions }, (_, i) => (
+              <span
+                key={i}
+                className={`tracker-item ${i === currentQuestionIndex ? 'active' : ''}`}
+                onClick={() => setCurrentQuestionIndex(i)} // Allow clicking to jump to a question
+              >
+                {i + 1}
+              </span>
+            ))}
+          </div>
 
-          <div className="question-content">
-            {submitted ? (
-              <div className="score-container">
-                <h2>Your score: {score}/{mcqData.length}</h2>
-
-                <button onClick={resetQuiz}>Retake Quiz</button>
-
-                <button onClick={() => alert("Redirecting to more questions!")}>
-                  More Questions on this Topic
-                </button>
-              </div>
-            ) : (
+          <div className="question-header">
+            <h3>Current Question: {currentQuestionIndex + 1} / {numQuestions}</h3>
+          </div>
+          {!submitted ? (
+            <>
               <form onSubmit={handleSubmit}>
                 <div className="question">
                   <h3>{mcqData[currentQuestionIndex].question}</h3>
+                </div>
+                <div className="options-container">
                   {mcqData[currentQuestionIndex].options.map((option, optionIndex) => (
                     <div key={optionIndex}>
-                      <label>
-                        <input
-                          type="radio"
-                          name={`question-${currentQuestionIndex}`}
-                          value={option}
-                          checked={selectedOptions[currentQuestionIndex] === option}
-                          onChange={() => handleOptionChange(option)}
-                        />
-                        {option}
-                      </label>
+                      <input
+                        type="radio"
+                        name={`question-${currentQuestionIndex}`}
+                        value={option}
+                        id={`option-${optionIndex}`}
+                        checked={selectedOptions[currentQuestionIndex] === option}
+                        onChange={() => handleOptionChange(option)}
+                      />
+                      <label htmlFor={`option-${optionIndex}`}>{option}</label>
                     </div>
                   ))}
                 </div>
                 <div className="buttons">
-                  <button
-                    type="button"
-                    onClick={handlePrevious}
-                    disabled={currentQuestionIndex === 0}
-                    className="previous-btn"
-                  >
-                    Previous
-                  </button>
-
-                  {currentQuestionIndex < mcqData.length - 1 ? (
-                    <button
-                      type="button"
-                      onClick={handleNext}
-                      className="next-btn"
-                    >
+                  {currentQuestionIndex > 0 && (
+                    <button type="button" onClick={handlePrevious} className="previous-btn">
+                      Previous
+                    </button>
+                  )}
+                  {currentQuestionIndex < numQuestions - 1 ? (
+                    <button type="button" onClick={handleNext} className="next-btn">
                       Next
                     </button>
                   ) : (
@@ -139,12 +131,17 @@ const Testpage = () => {
                   )}
                 </div>
               </form>
-            )}
-          </div>
-        </>
+            </>
+          ) : (
+            <div className="score-container">
+              <h2>Your score: {score}/{numQuestions}</h2>
+              <button onClick={resetQuiz}>Retake Quiz</button>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
 };
 
-export default Testpage;
+export default Quizpage;
