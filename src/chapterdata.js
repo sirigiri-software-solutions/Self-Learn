@@ -10879,3 +10879,25 @@ export const chaptersData = {
   };
 
   
+
+// export const chaptersData = {
+//   "Andhra Pradesh": {
+//     8: {
+//       Telugu_Sem_1: [
+//         {
+//           chapter: "Chapter 1: Andhra Vaibhavam",
+//           subchapters: [],
+//           questions: [],
+//         },
+//         {
+//           chapter: "Chapter 8: Telugu Literature",
+//           subchapters: [
+//             "Subchapter 1: Pothuluri Veerabrahmam",
+//             "Subchapter 2: Nedunuri Gangadharam",
+//           ],
+//           questions: ["Question 1", "Question 2"],
+//         },
+//       ],
+//     },
+//   },
+// };

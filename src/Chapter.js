@@ -234,25 +234,6 @@ const Chapter = ({ state, clas, subject, onChapterChange, onSubchapterChange }) 
       </div>
 
 
-      {/* {chapterObject && chapterObject.subchapters.length > 0 && (
-        <div className="flex items-center mb-4 mt-[3%]">
-          <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[30%] text-right">
-            Subchapters:
-          </label>
-          <select
-            className="w-[70%] px-3 cursor-pointer py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
-            onChange={handleSubchapterSelection}
-            value={selectedSubchapter}
-          >
-            <option value="">Select a subchapter</option>
-            {chapterObject.subchapters.map((subchapter, index) => (
-              <option key={index} value={subchapter}>
-                {subchapter}
-              </option>
-            ))}
-          </select>
-        </div>
-      )} */}
       {chapterObject?.subchapters?.length > 0 && (
   <div className="flex items-center mb-4 mt-[3%]">
     <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[20%] text-right">
@@ -273,28 +254,6 @@ const Chapter = ({ state, clas, subject, onChapterChange, onSubchapterChange }) 
   </div>
 )}
 
-{/* {chapterObject?.questions?.length > 0 && (
-  <div className="flex items-center mb-4 w-full">
-    <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[30%] text-right">
-      Questions:
-    </label>
-  </div>
-)} */}
-
-
-      {/* {chapterObject && chapterObject.questions.length > 0 && (
-        // <div className="flex items-center  w-full">
-        //   <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[30%] text-right">
-        //     Questions:
-        //   </label>
-        //   <button
-        //     className="doubt-button px-4 py-2 bg-green-700  text-white rounded-md w-full"
-        //     onClick={gotoQuestion}
-        //   >
-        //     Go To Questions
-        //   </button>
-        // </div>
-      )} */}
 
     </div>
   );
