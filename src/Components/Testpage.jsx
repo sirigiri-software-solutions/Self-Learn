@@ -20,8 +20,7 @@ const Testpage = () => {
   const [score, setScore] = useState(0);
   const [showQuiz, setShowQuiz] = useState(false);
   const [numQuestions, setNumQuestions] = useState(5);
-  const [selectQuestions, setSelectQuestions] = useState(false);
-  
+
   const handleOptionChange = (option) => {
     const newSelectedOptions = [...selectedOptions];
     newSelectedOptions[currentQuestionIndex] = option;
@@ -29,15 +28,15 @@ const Testpage = () => {
   };
 
   const handleNext = () => {
-    if (!selectQuestions) {
-      setSelectQuestions(true);
-    } else {
-      setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, numQuestions - 1));
+    if (currentQuestionIndex < numQuestions - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
     }
   };
 
   const handlePrevious = () => {
-    setCurrentQuestionIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -54,45 +53,37 @@ const Testpage = () => {
 
   const resetQuiz = () => {
     setCurrentQuestionIndex(0);
-    setSelectedOptions(Array(numQuestions).fill(''));
+    setSelectedOptions(Array(mcqData.length).fill(''));
     setSubmitted(false);
     setScore(0);
     setShowQuiz(false);
-    setSelectQuestions(false);
   };
 
   return (
     <div className="quiz-container">
       {!showQuiz && (
         <div className="start-quiz-container">
-          {!selectQuestions ? (
-            <>
-              <label htmlFor="numQuestions" className="num-questions-label">Number of Questions:</label>
-              <input
-                type="number"
-                id="numQuestions"
-                min="1"
-                max={mcqData.length}
-                value={numQuestions}
-                onChange={(e) => setNumQuestions(Math.min(e.target.value, mcqData.length))}
-                className="num-questions-input"
-              />
-              <button className="start-quiz-btn" onClick={handleNext}>Next</button>
-            </>
-          ) : (
-            <button className="start-quiz-btn" onClick={() => setShowQuiz(true)}>Start Test</button>
-          )}
+          <label htmlFor="numQuestions" className="num-questions-label">Number of Questions:</label>
+          <input
+            type="number"
+            id="numQuestions"
+            min="1"
+            max={mcqData.length}
+            value={numQuestions}
+            onChange={(e) => setNumQuestions(Math.min(e.target.value, mcqData.length))}
+            className="num-questions-input"
+          />
+          <button className="start-quiz-btn" onClick={() => setShowQuiz(true)}>Start Test</button>
         </div>
       )}
 
       {showQuiz && (
         <div className="question-content">
-           <div className="question-header">
-                <h3>Current Question: {currentQuestionIndex + 1} / {numQuestions}</h3>
-              </div>
+          <div className="question-header">
+            <h3>Current Question: {currentQuestionIndex + 1} / {numQuestions}</h3>
+          </div>
           {!submitted ? (
             <>
-             
               <form onSubmit={handleSubmit}>
                 <div className="question">
                   <h3>{mcqData[currentQuestionIndex].question}</h3>

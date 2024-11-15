@@ -1,9 +1,14 @@
+
 import React, { useState } from "react";
 import Chapter from "./Chapter";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useChapterContext } from "./ChapterContext";
+// const { selectedQuestions } = useChapterContext();
 
 const StateDropdown = () => {
+const { selectedQuestions } = useChapterContext();
+
   const [selectedState, setSelectedState] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
@@ -181,15 +186,8 @@ const StateDropdown = () => {
 
   const navigate = useNavigate();
 
-  // const handleNext = () => {
-  //   setShowTextArea(true);
-  // };
+ 
 
-  // const goToLogin = () => {
-  //   console.log("Navigating to login...");
-  //   // navigate('/');
-  //   <Link to="/">Go to Login</Link>;
-  // };
 
   const goToDashboard = () => {
     localStorage.removeItem("email");
@@ -199,11 +197,11 @@ const StateDropdown = () => {
   };
 
   const goToTestPage = () => {
-    navigate("/testpage");
+    navigate("/test");
   };
 
   const goToDoubtPage = () => {
-    navigate("/doubtsection");
+    navigate("/doubt");
   };
   const gotoQuestion = () => {
     navigate("/question"); 
@@ -213,13 +211,13 @@ const StateDropdown = () => {
 
   return (
     <div className="container mx-auto max-w-lg p-4 overflow-auto">
-<div className="bg-sky-400 w-full md:absolute left-0 top-0 p-4 md:p-2 mt-2 flex flex-col md:flex-row justify-between items-start md:items-center">
-    <h3 className="text-[10px] font-bold text-blue-600 bg-white p-4 px-6 md:px-10 rounded-lg shadow-xl transition-transform transform hover:scale-105 cursor-pointer mb-4 md:mb-0">
+<div className="bg-sky-400 w-full md:absolute flex flex-col md:flex-row left-0 top-0 p-4 md:p-2 mt-2 justify-between items-start md:items-center">
+    <h3 className="text-[20px] text-center w-full md:w-[200px] font-bold text-blue-600 bg-white py-2 px-4 md:px-10 rounded-lg shadow-xl transition-transform transform hover:scale-105 cursor-pointer mb-4 md:mb-0">
         Hi user....
     </h3>
     <button
         onClick={goToDashboard}
-        className="px-4 py-2 bg-blue-500 text-white rounded-md w-full md:w-[100px] shadow-md hover:bg-blue-700 transition duration-300"
+        className="px-4 p-2 bg-gray-400 w-full text-white hover:scale-105 rounded-md md:w-[100px] md:mr-[5%] shadow-md hover:bg-blue-700 transition duration-300"
     >
         Log out
     </button>
@@ -227,18 +225,19 @@ const StateDropdown = () => {
 
 
 
+
       <div className="dropdown-container flex flex-col items-start justify-center p-5 bg-white rounded-lg shadow-md w-full mt-[10%] ">
       <div className="w-full text-center">
-<h3 className="text-[20px]  font-bold text-blue-600 bg-white p-4 px-6 md:px-10 rounded-lg shadow-xl transition-transform transform hover:scale-105 cursor-pointer mb-4 md">
+<h3 className="text-[20px] font-bold text-blue-600 bg-white p-4 px-6 md:px-10 rounded-lg transition-transform transform hover:scale-105 cursor-pointer mb-4 ">
 
      Select you Topic </h3>
 </div>
-        <div className="flex items-center mb-4 mt-[30px] w-full">
+        <div className="flex  items-center mb-4  mt-[30px] w-full">
           <label className="dropdown-label font-semibold text-sm text-gray-600 mr-4 w-[30%] text-right">
             State:
           </label>
           <select
-        className="w-[80%] px-3 cursor-pointer py-2 border border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
+        className="w-[80%] px-3 cursor-pointer py-2 border  border-gray-300 rounded bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 hover:border-blue-500 focus:outline-none"
             
             // className="dropdown flex-1 cursor-pointer p-2 border border-gray-300 rounded-md bg-gray-100 text-sm text-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:outline-none"
             value={selectedState}
@@ -290,7 +289,7 @@ const StateDropdown = () => {
           </select>
         </div>
 
-        <div className="chapter-container mb-4 w-full">
+        <div className="chapter-container mb-4  w-full">
           <Chapter
             state={selectedState}
             clas={selectedClass}
@@ -300,33 +299,6 @@ const StateDropdown = () => {
           />
         </div>
 
-        {/* {selectedState && (
-          <p className="selected-info text-xs text-gray-500 mt-2">
-            You have selected state: {selectedState}
-          </p>
-        )}
-        {selectedClass && (
-          <p className="selected-info text-xs text-gray-500 mt-2">
-            You have selected class: {selectedClass}
-          </p>
-        )}
-        {selectedSubject && (
-          <p className="selected-info text-xs text-gray-500 mt-2">
-            You have selected subject: {selectedSubject}
-          </p>
-        )}
-        {selectedChapter && (
-          <p className="selected-info text-xs text-gray-500 mt-2">
-            You have selected chapter: {selectedChapter}
-          </p>
-        )}
-        {
-          selectQuestion &&(
-            <p className="selected-info text-xs text-gray-500 mt-2">
-                subChapter :{selectQuestion}
-</p>
-          )
-        } */}
 
         {selectedState &&
           selectedClass &&
@@ -334,13 +306,14 @@ const StateDropdown = () => {
           selectedChapter && (
             <div className="flex flex-col w-full gap-2">
               {/* <button onClick={handleNext} className="px-4 py-2 bg-green-500 text-white rounded-md w-full">Next</button> */}
-      
               <button
-                className="doubt-button px-4 py-2 bg-green-500 text-white rounded-md w-full"
-                onClick={gotoQuestion}
-              >
-                Go to Questions
-              </button>
+      className="doubt-button px-4 py-2 bg-green-500 text-white rounded-md w-full"
+      onClick={gotoQuestion}
+    >
+      Go to Questions
+    </button> 
+
+          
               <button
                 className="doubt-button px-4 py-2 bg-yellow-500 text-white rounded-md w-full"
                 onClick={goToDoubtPage}
